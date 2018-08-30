@@ -1,0 +1,13 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  image: "registry.gitlab.com/bgiarrizzo/ansible-CI"
+  before_script:
+    - mkdir -p ~/.ssh/
+    - echo "${secret_key_deploy}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+    - echo "${public_key_deploy}" > ~/.ssh/id_rsa.pub && chmod 600 ~/.ssh/id_rsa.pub
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - cd Deploy/ && ansible-playbook playbook.yml -i host.yml
