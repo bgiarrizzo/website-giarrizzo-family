@@ -21,9 +21,3 @@
     src: conf/102-proxy.conf
     dest: /etc/nginx/conf.d/102-proxy.conf
   notify: restart nginx
-
-- name: Module Install = PHP7-FPM
-  template:
-    src: conf/103-php7fpm.conf
-    dest: /etc/nginx/conf.d/103-php7fpm.conf
-  notify: restart nginx
