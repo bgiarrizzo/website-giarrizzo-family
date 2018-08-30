@@ -20,7 +20,7 @@
 
 - name: Site Install = Giarrizzo.fr
   template:
-    src: sites/giarrizzo.fr.conf
+    src: giarrizzo.fr.conf
     dest: /etc/nginx/sites-enabled/001-giarrizzo.fr.conf
   notify: restart nginx
 
