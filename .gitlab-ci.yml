@@ -3,7 +3,7 @@ stages:
 
 deploy:
   stage: deploy
-  image: "registry.gitlab.com/bgiarrizzo/ansible-CI"
+  image: "registry.gitlab.com/bgiarrizzo/ansible-ci"
   before_script:
     - mkdir -p ~/.ssh/
     - echo "${secret_key_deploy}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
