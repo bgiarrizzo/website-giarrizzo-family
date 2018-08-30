@@ -31,8 +31,3 @@
     repo: git@gitlab.com:bgiarrizzo/giarrizzo.fr.git
     dest: /home/web/giarrizzo.fr/home/
     update: yes
-
-- name: Remove Deploy Files
-  file:
-    path: "/home/web/giarrizzo.fr/home/Deploy"
-    state: absent
