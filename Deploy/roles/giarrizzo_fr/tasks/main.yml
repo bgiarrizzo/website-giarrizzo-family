@@ -34,5 +34,5 @@
 
 - name: Remove Deploy Files
   file:
-    path: "/var/log/nginx/giarrizzo.fr/Deploy"
+    path: "/home/web/giarrizzo.fr/home/Deploy"
     state: absent
