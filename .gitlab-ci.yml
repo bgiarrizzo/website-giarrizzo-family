@@ -5,7 +5,6 @@ deploy:
   stage: deploy
   image: "registry.gitlab.com/bgiarrizzo/ansible-ci"
   before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - mkdir -p ~/.ssh/
     - echo "${secret_key_deploy}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
     - echo "${public_key_deploy}" > ~/.ssh/id_rsa.pub && chmod 600 ~/.ssh/id_rsa.pub
