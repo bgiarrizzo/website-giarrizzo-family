@@ -1,5 +1,10 @@
 ## Requirements
 
+- name: Send notification message via Slack
+  slack:
+    token: TATK1HJTB/BAUL4JQHF/7OVChtq1C3UeskboFRWwwd1D
+    msg: 'Giarrizzo.fr Deploy start'
+
 - name: Nginx root web folders creation
   file:
     path: "/home/web/giarrizzo.fr/home/"
@@ -31,3 +36,8 @@
     repo: git@gitlab.com:bgiarrizzo/giarrizzo.fr.git
     dest: /home/web/giarrizzo.fr/home/
     update: yes
+
+- name: Send notification message via Slack
+  slack:
+    token: TATK1HJTB/BAUL4JQHF/7OVChtq1C3UeskboFRWwwd1D
+    msg: 'Giarrizzo.fr Deploy finished'
