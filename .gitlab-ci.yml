@@ -11,4 +11,4 @@ deploy:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - git clone git@gitlab.com:bgiarrizzo/ansible.git ~/playbook/
   script:
-    - cd ~/playbook/ && ls -lah && ansible-playbook playbook.yml -i host.yml --limit='jarvis.giarrizzo.fr' --tags='giarrizzo_fr'
+    - cd ~/playbook/ && ansible-playbook playbook.yml -i hosts.yml --limit='jarvis.giarrizzo.fr' --tags='giarrizzo_fr'
