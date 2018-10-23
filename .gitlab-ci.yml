@@ -9,6 +9,6 @@ deploy:
     - echo "${secret_key_deploy}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
     - echo "${public_key_deploy}" > ~/.ssh/id_rsa.pub && chmod 600 ~/.ssh/id_rsa.pub
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - git clone git@gitlab.com:bgiarrizzo/ansible.git playbook/
+    - git clone git@gitlab.com:bgiarrizzo/ansible.git ~/playbook/
   script:
-    - cd playbook/ && ansible-playbook playbook.yml -i host.yml --limit='jarvis.giarrizzo.fr' --tags='giarrizzo_fr'
+    - cd ~/playbook/ && ansible-playbook playbook.yml -i host.yml --limit='jarvis.giarrizzo.fr' --tags='giarrizzo_fr'
