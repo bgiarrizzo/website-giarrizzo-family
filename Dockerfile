@@ -2,6 +2,8 @@
 
 FROM nginx:alpine
 
+COPY etc/nginx/default.conf /etc/nginx/conf.d/default.conf
+
 ADD www/ /var/www/
 
 WORKDIR /var/www/
