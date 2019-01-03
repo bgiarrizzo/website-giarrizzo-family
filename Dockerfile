@@ -2,12 +2,8 @@
 
 FROM nginx:alpine
 
-RUN rm -rf /etc/nginx/conf.d/default.conf
+ADD www/ /usr/share/nginx/html/
 
-COPY etc/nginx/default.conf /etc/nginx/conf.d/default.conf
-
-ADD www/ /var/www/
-
-WORKDIR /var/www/
+WORKDIR /usr/share/nginx/html/
 
 EXPOSE 80
