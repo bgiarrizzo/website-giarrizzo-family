@@ -1,7 +1,6 @@
 variables:
   DEPLOY_TAG: "giarrizzo_fr"
   DEPLOY_TO: "friday.giarrizzo.fr"
-  SLACK_API: "https://hooks.slack.com/services/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"
   SLACK_PAYLOAD: "payload={\"channel\": \"#deploy\", \"username\": \"Site_Giarrizzo\", \"text\": \"Family - Deploy started : ${CI_JOB_URL}.\", \"icon_emoji\": \":ghost:\"}"
 
 stages:
