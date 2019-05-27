@@ -1,0 +1,10 @@
+## Ansible cfg
+
+remote_user: root
+
+## Host cfg
+
+gitlab:
+  regurl: registry.gitlab.com
+  login: bgiarrizzo
+  password: m7wk3k6qR8rrCs9SvVeJ

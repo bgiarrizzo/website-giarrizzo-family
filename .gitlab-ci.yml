@@ -1,6 +1,11 @@
+variables:
+  DEPLOY_TAG: "giarrizzo_fr"
+  DEPLOY_TO: "friday.giarrizzo.fr"
+  SLACK_PAYLOAD: "payload={\"channel\": \"#deploy\", \"username\": \"Site_Giarrizzo\", \"text\": \"Family - Deploy started : ${CI_JOB_URL}.\", \"icon_emoji\": \":ghost:\"}"
+
 stages:
   - build
-  # - deploy
+  - deploy
 
 build_image:
   stage: build
@@ -19,14 +24,14 @@ build_image:
   after_script:
     - docker push ${CONTAINER_IMAGE}
 
-# deploy:
-#   stage: deploy
-#   image: "registry.gitlab.com/bgiarrizzo/ansible-ci"
-#   before_script:
-#     - mkdir -p ~/.ssh/
-#     - echo "${secret_key_deploy}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
-#     - echo "${public_key_deploy}" > ~/.ssh/id_rsa.pub && chmod 600 ~/.ssh/id_rsa.pub
-#     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-#     - git clone git@gitlab.com:bgiarrizzo/ansible.git ~/playbook/
-#   script:
-#     - cd ~/playbook/ && ansible-playbook playbook.yml -i hosts.yml --limit='jarvis.giarrizzo.fr' --tags='giarrizzo_fr'
+deploy:
+  stage: deploy
+  image: "registry.gitlab.com/bgiarrizzo/ansible-ci"
+  before_script:
+    - curl -X POST --data-urlencode "${SLACK_PAYLOAD}" ${SLACK_API}
+    - mkdir -p ~/.ssh/
+    - echo "${secret_key_deploy}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+    - echo "${public_key_deploy}" > ~/.ssh/id_rsa.pub && chmod 600 ~/.ssh/id_rsa.pub
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - cd Deploy/ && ansible-playbook playbook.yml -i hosts.yml --limit="${DEPLOY_TO}" --tags="${DEPLOY_TAG}"

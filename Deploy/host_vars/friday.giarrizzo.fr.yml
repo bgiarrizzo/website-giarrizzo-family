@@ -1,0 +1,6 @@
+## Host cfg
+
+# OS
+
+pip_install_packages:
+  - docker

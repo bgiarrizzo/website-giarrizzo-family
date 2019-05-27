@@ -1,0 +1,195 @@
+# ------------------------------------------------------------------------------
+# Init Vars
+
+- name: Set Domain Name for giarrizzo.fr
+  set_fact:
+    domain_name: giarrizzo.fr
+  tags:
+    - giarrizzo_fr
+
+- name: Set Domain Name for bruno.giarrizzo.fr
+  set_fact:
+    domain_name: bruno.giarrizzo.fr
+  tags:
+    - bruno_giarrizzo_fr
+
+- name: Set Domain Name for jessica.giarrizzo.fr
+  set_fact:
+    domain_name: jessica.giarrizzo.fr
+  tags:
+    - jessica_giarrizzo_fr
+
+- name: Set Domain Name for lyanna.giarrizzo.fr
+  set_fact:
+    domain_name: lyanna.giarrizzo.fr
+  tags:
+    - lyanna_giarrizzo_fr
+
+# - name: Set Domain Name for wedding.giarrizzo.fr
+#   set_fact:
+#     domain_name: wedding.giarrizzo.fr
+#   tags:
+#     - wedding_giarrizzo_fr
+
+- name: Set Vars for giarrizzo.fr
+  set_fact:
+    vhost_code: 201
+    vhost_conf_file: "{{ domain_name }}.conf"
+    image_url: "{{ gitlab.regurl }}/giarrizzofamily/{{ domain_name }}"
+    image_tag: latest
+    container_port: 8000
+  tags:
+    - giarrizzo_fr
+
+- name: Set Vars for bruno.giarrizzo.fr
+  set_fact:
+    vhost_code: 202
+    vhost_conf_file: "{{ domain_name }}.conf"
+    image_url: "{{ gitlab.regurl }}/giarrizzofamily/{{ domain_name }}"
+    image_tag: latest
+    container_port: 8001
+    ghost_container_port: 8005
+  tags:
+    - bruno_giarrizzo_fr
+
+- name: Set Vars for jessica.giarrizzo.fr
+  set_fact:
+    vhost_code: 203
+    vhost_conf_file: "{{ domain_name }}.conf"
+    image_url: "{{ gitlab.regurl }}/giarrizzofamily/{{ domain_name }}"
+    image_tag: latest
+    container_port: 8002
+  tags:
+    - jessica_giarrizzo_fr
+
+- name: Set Vars for lyanna.giarrizzo.fr
+  set_fact:
+    vhost_code: 204
+    vhost_conf_file: "{{ domain_name }}.conf"
+    image_url: "{{ gitlab.regurl }}/giarrizzofamily/{{ domain_name }}"
+    image_tag: latest
+    container_port: 8003
+  tags:
+    - lyanna_giarrizzo_fr
+
+# - name: Set Vars for wedding.giarrizzo.fr
+#   set_fact:
+#     vhost_code: 205
+#     vhost_conf_file: "{{ domain_name }}.conf"
+#     image_url: "{{ gitlab.regurl }}/giarrizzofamily/{{ domain_name }}"
+#     image_tag: latest
+#     container_port: 8004
+#   tags:
+#     - wedding_giarrizzo_fr
+
+# ------------------------------------------------------------------------------
+# Main Process
+
+- name: Log into docker registry
+  docker_login:
+    registry: "{{ gitlab.regurl }}"
+    username: "{{ gitlab.login }}"
+    password: "{{ gitlab.password }}"
+    reauthorize: yes
+  tags:
+    - deploy_site
+    - giarrizzo_fr
+    - bruno_giarrizzo_fr
+    - jessica_giarrizzo_fr
+    - lyanna_giarrizzo_fr
+    - wedding_giarrizzo_fr
+
+- name: "Create Docker network - {{ docker_network_name }}"
+  docker_network:
+    name: "{{ docker_network_name }}"
+    state: present
+  tags:
+    - deploy_site
+    - giarrizzo_fr
+    - bruno_giarrizzo_fr
+    - jessica_giarrizzo_fr
+    - lyanna_giarrizzo_fr
+    - wedding_giarrizzo_fr
+
+## -----------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
+## Giarrizzo.fr
+
+## vHost Config
+
+- name: Nginx log folders creation - /var/log/nginx/site_giarrizzo/{{ domain_name }}/
+  file:
+    path: "/var/log/nginx/site_giarrizzo/{{ domain_name }}/"
+    owner: www-data
+    group: adm
+    state: directory
+    mode: 0755
+  tags:
+    - deploy_site
+    - giarrizzo_fr
+    - bruno_giarrizzo_fr
+    - jessica_giarrizzo_fr
+    - lyanna_giarrizzo_fr
+    - wedding_giarrizzo_fr
+
+- name: Site Install = {{ domain_name }} - /etc/nginx/conf.d/{{ vhost_code }}-{{ domain_name }}.conf
+  template:
+    src: "{{ vhost_conf_file }}"
+    dest: "/etc/nginx/conf.d/{{ vhost_code }}-{{ domain_name }}.conf"
+  notify: restart nginx
+  tags:
+    - deploy_site
+    - giarrizzo_fr
+    - bruno_giarrizzo_fr
+    - jessica_giarrizzo_fr
+    - lyanna_giarrizzo_fr
+    - wedding_giarrizzo_fr
+
+## Container Deploy
+
+- name: "Deploy Container {{ domain_name }}"
+  docker_container:
+    name: "{{ domain_name }}"
+    image: "{{ image_url }}:{{ image_tag }}"
+    pull: yes
+    restart: yes
+    restart_policy: always
+    networks:
+      - name: "{{ docker_network_name }}"
+    purge_networks: yes
+    ports:
+    - "{{ container_port }}:80"
+    volumes:
+      - "/var/log/nginx/site_giarrizzo/{{ domain_name }}/:/var/log/nginx/"
+  tags:
+    - deploy_site
+    - bruno_giarrizzo_fr
+
+- name: Create volume - {{ domain_name }}/blog - Ghost Content
+  docker_volume:
+    name: "{{ domain_name }}-ghost-content"
+    state: present
+  tags:
+    - deploy_site
+    - bruno_giarrizzo_fr
+
+- name: Run Containers - {{ domain_name }}/blog - Ghost
+  docker_container:
+    name: "{{ domain_name }}-blog"
+    image: ghost:alpine
+    pull: yes
+    restart: yes
+    restart_policy: always
+    recreate: yes
+    ports:
+      - "{{ ghost_container_port }}:2368"
+    volumes:
+      - "{{ domain_name }}-ghost-content:/var/lib/ghost/content/"
+    networks:
+      - name: "{{ docker_network_name }}"
+    env:
+      NODE_ENV: production
+      url: "http://{{ domain_name }}/blog/"
+  tags:
+    - deploy_site
+    - bruno_giarrizzo_fr
