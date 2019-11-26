@@ -35,7 +35,7 @@
   set_fact:
     vhost_code: 201
     vhost_conf_file: "{{ domain_name }}.conf"
-    image_url: "{{ gitlab.regurl }}/giarrizzofamily/{{ domain_name }}"
+    image_url: "{{ gitlab.regurl }}/{{ gitlab.login }}/{{ domain_name }}"
     image_tag: latest
     container_port: 8000
   tags:
@@ -45,7 +45,7 @@
   set_fact:
     vhost_code: 202
     vhost_conf_file: "{{ domain_name }}.conf"
-    image_url: "{{ gitlab.regurl }}/giarrizzofamily/{{ domain_name }}"
+    image_url: "{{ gitlab.regurl }}/{{ gitlab.login }}/{{ domain_name }}"
     image_tag: latest
     container_port: 8001
     ghost_container_port: 8005
@@ -56,7 +56,7 @@
   set_fact:
     vhost_code: 203
     vhost_conf_file: "{{ domain_name }}.conf"
-    image_url: "{{ gitlab.regurl }}/giarrizzofamily/{{ domain_name }}"
+    image_url: "{{ gitlab.regurl }}/{{ gitlab.login }}/{{ domain_name }}"
     image_tag: latest
     container_port: 8002
   tags:
@@ -66,7 +66,7 @@
   set_fact:
     vhost_code: 204
     vhost_conf_file: "{{ domain_name }}.conf"
-    image_url: "{{ gitlab.regurl }}/giarrizzofamily/{{ domain_name }}"
+    image_url: "{{ gitlab.regurl }}/{{ gitlab.login }}/{{ domain_name }}"
     image_tag: latest
     container_port: 8003
   tags:
@@ -76,7 +76,7 @@
 #   set_fact:
 #     vhost_code: 205
 #     vhost_conf_file: "{{ domain_name }}.conf"
-#     image_url: "{{ gitlab.regurl }}/giarrizzofamily/{{ domain_name }}"
+#     image_url: "{{ gitlab.regurl }}/{{ gitlab.login }}/{{ domain_name }}"
 #     image_tag: latest
 #     container_port: 8004
 #   tags:
