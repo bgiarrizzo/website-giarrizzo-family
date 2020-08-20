@@ -1,7 +1,0 @@
-- hosts: friday.giarrizzo.fr
-  remote_user: root
-  roles:
-    - nginx
-    - python-pip
-    - docker
-    - sites_giarrizzo
