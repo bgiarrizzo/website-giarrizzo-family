@@ -6,8 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 		<style>
 			html {
-				height: 100vh;
 				height: -webkit-fill-available;
+
 				background-color: #fdf6e3;
 				margin: 0;
 				padding: 0;
@@ -15,10 +15,15 @@
 			body {
 				padding: 20px 0;
 				margin: 0;
-				height: calc(100vh - 40px);
+
+				display: flex; 
+				flex-direction: column;
+
+				min-height: 100vh;
+				min-height: -webkit-fill-available;
 			}
 			header {
-				height: 25%;
+				height: calc(25vh - 20px);
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
@@ -39,7 +44,7 @@
 				padding-bottom: 0;
 			}
 			main {
-				height: 65%;
+				height: calc(65vh - 20px);
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
@@ -68,7 +73,7 @@
 				color: #AAA;
 			}
 			footer {
-				height: 10%;
+				height: calc(10vh - 20px);
 				display: flex;
 				flex-direction: column;
 				justify-content: center;	
