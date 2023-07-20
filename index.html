@@ -6,7 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 		<style>
 			html {
-				height: calc(var(--vh, 1vh) * 100);
+				min-height: calc(var(--vh, 1vh) * 100);
+				min-height: -webkit-fill-available;
 				background-color: #fdf6e3;
 				margin: 0;
 				padding: 0;
@@ -14,7 +15,8 @@
 			body {
 				padding: 20px 0;
 				margin: 0;
-				height: calc(var(--vh, 1vh) * 100 - 40px)
+				min-height: calc(var(--vh, 1vh) * 100 - 40px);
+				min-height: calc(-webkit-fill-available - 40px);
 			}
 			header {
 				height: 25%;
