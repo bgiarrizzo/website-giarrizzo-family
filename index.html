@@ -5,55 +5,106 @@
 		<meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 		<style>
-			body {
+			html {
+				height: 100vh;
 				background-color: #fdf6e3;
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				padding: 20px 0;
+				margin: 0;
+				height: calc(100vh - 40px)
+			}
+			header {
+				height: 25%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
 			}
 			h1 {
 				text-align: center;
-				font-size: 80px;
+
+				color: #444;
+				font-size: 4em;
 				font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 				font-weight: 600 !important;
+
 				letter-spacing: .002em;
-				color: #444;
+				
+				margin: 0;
+
+				padding-top: 0;
+				padding-bottom: 0;
+			}
+			main {
+				height: 65%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
 			}
 			ul {
 				text-align: center;
+
 				font-size: 40px;
 				font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 				font-weight: 600 !important;
 				letter-spacing: .002em;
-				list-style-type: none;
+
+				margin: 0;
 				padding: 0;
-				line-height: 1.5em;
-			}
-			ul li {
-				display: inline;
-				margin: 0 30px;
+
+				list-style-type: none;
+				line-height: 2em;
 			}
 			a {
+				color: #666;
 				text-decoration: underline;
 				text-decoration-thickness: 1.5px;
 				text-underline-offset: 4px;
-				color: #666;
 			}
 			a:hover {
 				color: #AAA;
 			}
+			footer {
+				height: 10%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;	
+			}
+			footer p {
+				text-align: center;
 
+				color: #444;
+				font-size: 20px;
+				font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+				font-weight: 600 !important;
+				letter-spacing: .002em;
+				
+				margin: 0;
+				padding: 0;
+			}
 		</style>
 	</head>
 	<body>
-        <h1>Famille Giarrizzo</h1>
-		<ul>
-			<li>
-				<a href="https://bruno.giarrizzo.fr/">Bruno</a>
-			</li>
-			<li>
-				<a href="https://jessica.giarrizzo.fr/">Jessica</a>
-			</li>
-			<li>
-				<a href="https://lyanna.giarrizzo.fr/">Lyanna</a>
-			</li>
-		</ul>
+		<header>
+			<h1>Famille Giarrizzo</h1>
+		</header>
+		<main>
+			<ul>
+				<li>
+					<a href="https://bruno.giarrizzo.fr/">Bruno</a>
+				</li>
+				<li>
+					<a href="https://jessica.giarrizzo.fr/">Jessica</a>
+				</li>
+				<li>
+					<a href="https://lyanna.giarrizzo.fr/">Lyanna</a>
+				</li>
+			</ul>
+		</main>
+		<footer>
+			<p>2023 - Giarrizzo</p>
+		</footer>
     </body>
 </html>
